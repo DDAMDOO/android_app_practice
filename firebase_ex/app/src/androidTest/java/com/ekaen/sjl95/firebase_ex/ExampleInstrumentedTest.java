@@ -1,4 +1,4 @@
-package com.ekaen.sjl95.databaseex;
+package com.ekaen.sjl95.firebase_ex;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.ekaen.sjl95.databaseex", appContext.getPackageName());
+        assertEquals("com.ekaen.sjl95.firebase_ex", appContext.getPackageName());
     }
 }

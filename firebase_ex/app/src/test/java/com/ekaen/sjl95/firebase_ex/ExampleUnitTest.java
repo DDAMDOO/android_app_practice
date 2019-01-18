@@ -1,4 +1,4 @@
-package com.ekaen.sjl95.databaseex;
+package com.ekaen.sjl95.firebase_ex;
 
 import org.junit.Test;
 
