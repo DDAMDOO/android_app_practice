@@ -5,6 +5,10 @@ import android.content.IntentSender;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -34,10 +38,12 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private static final String AUTH_PENDING = "auth_state_pending";
     private boolean authInProgress = false;
     private GoogleApiClient mApiClient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         if (savedInstanceState != null) {
             authInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
@@ -49,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
     }
 
     @Override
@@ -62,15 +67,15 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     @Override
     public void onConnected(Bundle bundle) {
         DataSourcesRequest dataSourceRequest = new DataSourcesRequest.Builder()
-                .setDataTypes( DataType.TYPE_STEP_COUNT_CUMULATIVE )
-                .setDataSourceTypes( DataSource.TYPE_RAW )
+                .setDataTypes(DataType.TYPE_STEP_COUNT_CUMULATIVE)
+                .setDataSourceTypes(DataSource.TYPE_RAW)
                 .build();
 
         ResultCallback<DataSourcesResult> dataSourcesResultCallback = new ResultCallback<DataSourcesResult>() {
             @Override
             public void onResult(DataSourcesResult dataSourcesResult) {
-                for( DataSource dataSource : dataSourcesResult.getDataSources() ) {
-                    if( DataType.TYPE_STEP_COUNT_CUMULATIVE.equals( dataSource.getDataType() ) ) {
+                for (DataSource dataSource : dataSourcesResult.getDataSources()) {
+                    if (DataType.TYPE_STEP_COUNT_CUMULATIVE.equals(dataSource.getDataType())) {
                         registerFitnessDataListener(dataSource, DataType.TYPE_STEP_COUNT_CUMULATIVE);
                     }
                 }
@@ -84,17 +89,17 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
     private void registerFitnessDataListener(DataSource dataSource, DataType dataType) {
 
         SensorRequest request = new SensorRequest.Builder()
-                .setDataSource( dataSource )
-                .setDataType( dataType )
-                .setSamplingRate( 3, TimeUnit.SECONDS )
+                .setDataSource(dataSource)
+                .setDataType(dataType)
+                .setSamplingRate(3, TimeUnit.SECONDS)
                 .build();
 
-        Fitness.SensorsApi.add( mApiClient, request, this )
+        Fitness.SensorsApi.add(mApiClient, request, this)
                 .setResultCallback(new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
                         if (status.isSuccess()) {
-                            Log.e( "GoogleFit", "SensorApi successfully added" );
+                            Log.e("GoogleFit", "SensorApi successfully added");
                         }
                     }
                 });
@@ -107,27 +112,34 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        if( !authInProgress ) {
+        if (!authInProgress) {
             try {
                 authInProgress = true;
-                connectionResult.startResolutionForResult( MainActivity.this, REQUEST_OAUTH );
-            } catch(IntentSender.SendIntentException e ) {
+                connectionResult.startResolutionForResult(MainActivity.this, REQUEST_OAUTH);
+            } catch (IntentSender.SendIntentException e) {
 
             }
         } else {
-            Log.e( "GoogleFit", "authInProgress" );
+            Log.e("GoogleFit", "authInProgress");
         }
     }
 
 
+
     @Override
     public void onDataPoint(DataPoint dataPoint) {
-        for( final Field field : dataPoint.getDataType().getFields() ) {
-            final Value value = dataPoint.getValue( field );
+
+        final TextView textView=findViewById(R.id.textview);
+
+
+        for (final Field field : dataPoint.getDataType().getFields()) {
+            final Value value = dataPoint.getValue(field);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(getApplicationContext(), "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
+                    textView.setText(field.getName() + value);
+                    //Toast.makeText(getApplicationContext(),
+                    //  "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -135,19 +147,28 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( requestCode == REQUEST_OAUTH ) {
+        if (requestCode == REQUEST_OAUTH) {
             authInProgress = false;
-            if( resultCode == RESULT_OK ) {
-                if( !mApiClient.isConnecting() && !mApiClient.isConnected() ) {
+            if (resultCode == RESULT_OK) {
+                if (!mApiClient.isConnecting() && !mApiClient.isConnected()) {
                     mApiClient.connect();
                 }
-            } else if( resultCode == RESULT_CANCELED ) {
-                Log.e( "GoogleFit", "RESULT_CANCELED" );
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.e("GoogleFit", "RESULT_CANCELED");
             }
         } else {
             Log.e("GoogleFit", "requestCode NOT request_oauth");
         }
     }
+
+
+
+
+
+
+
+
+
 }
 
 
