@@ -2,14 +2,10 @@ package com.ekaen.sjl95.googlefit_ex;
 
 import android.content.Intent;
 import android.content.IntentSender;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.Scopes;
@@ -29,6 +25,7 @@ import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataSourcesResult;
 
 import java.util.concurrent.TimeUnit;
+
 
 
 public class MainActivity extends AppCompatActivity implements OnDataPointListener,
@@ -135,9 +132,12 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
         for (final Field field : dataPoint.getDataType().getFields()) {
             final Value value = dataPoint.getValue(field);
             runOnUiThread(new Runnable() {
+
+                String a = String.valueOf(value);
+                int result = Integer.parseInt(a)-32735;
                 @Override
                 public void run() {
-                    textView.setText(field.getName() + value);
+                    textView.setText(field.getName() + result );
                     //Toast.makeText(getApplicationContext(),
                     //  "Field: " + field.getName() + " Value: " + value, Toast.LENGTH_SHORT).show();
                 }
