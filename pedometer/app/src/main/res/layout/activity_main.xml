@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:pdReport="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    pdReport:layout_width="fill_parent"
+    pdReport:layout_height="fill_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        pdReport:layout_width="fill_parent"
+        pdReport:layout_height="fill_parent"
+        pdReport:gravity="center">
+
+        <TextView
+            pdReport:layout_width="fill_parent"
+            pdReport:layout_height="fill_parent"
+            pdReport:textSize="100sp"
+            pdReport:gravity="center"
+            pdReport:id="@+id/cntView" />
+
+    </LinearLayout>
+
+    <Button
+        pdReport:layout_width="fill_parent"
+        pdReport:layout_height="wrap_content"
+        pdReport:text="Reset"
+        pdReport:onClick="mOnClick"
+        pdReport:layout_alignParentBottom="true"
+        pdReport:id="@+id/resetBtn"/>
+
+</RelativeLayout>
