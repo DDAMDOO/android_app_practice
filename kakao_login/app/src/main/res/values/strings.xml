@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">kakao_login</string>
+    <string name="kakao_app_key">30e98c2f47bbb7e3e372dba3e19c8c9d</string>
+</resources>
