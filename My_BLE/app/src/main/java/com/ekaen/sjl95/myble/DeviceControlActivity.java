@@ -32,8 +32,8 @@ import java.util.List;
 public class DeviceControlActivity extends Activity {
     private final static String TAG = DeviceControlActivity.class.getSimpleName();
 
-    public static final String EXTRAS_DEVICE_NAME = "DEVICE_NAME";
-    public static final String EXTRAS_DEVICE_ADDRESS = "DEVICE_ADDRESS";
+    public static final String EXTRAS_DEVICE_NAME = "Big9";
+    public static final String EXTRAS_DEVICE_ADDRESS = "EE:56:D3:D2:42:99";
 
     private TextView mConnectionState;
     private TextView mDataField;
