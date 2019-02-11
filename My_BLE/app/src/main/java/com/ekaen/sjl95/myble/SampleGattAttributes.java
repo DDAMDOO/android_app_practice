@@ -7,16 +7,29 @@ import java.util.HashMap;
  */
 public class SampleGattAttributes {
     private static HashMap<String, String> attributes = new HashMap();
-    public static String HEART_RATE_MEASUREMENT = "00001800-0000-1000-8000-00805f9b34fb";
+    public static String A = "00001800-0000-1000-8000-00805f9b34fb";
+    public static String B = "00001801-0000-1000-8000-00805f9b34fb";
+    public static String C = "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+
+    public static String A_1 = "00002a00-0000-1000-8000-00805f9b34fb";
+    public static String A_2 = "00002a01-0000-1000-8000-00805f9b34fb";
+    public static String A_3 = "00002a04-0000-1000-8000-00805f9b34fb";
+    public static String C_1 = "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+    public static String C_2 = "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
     public static String CLIENT_CHARACTERISTIC_CONFIG = "00002a00-0000-1000-8000-00805f9b34fb";
 
     static {
         // Sample Services.
-        attributes.put("0000180d-0000-1000-8000-00805f9b34fb", "Heart Rate Service");
-        attributes.put("0000180a-0000-1000-8000-00805f9b34fb", "Device Information Service");
+        attributes.put(A, "A");
+        attributes.put(B, "B");
+        attributes.put(C, "C");
+
         // Sample Characteristics.
-        attributes.put(HEART_RATE_MEASUREMENT, "Heart Rate Measurement");
-        attributes.put("00002a29-0000-1000-8000-00805f9b34fb", "Manufacturer Name String");
+        attributes.put(A_1, "A1");
+        attributes.put(A_2, "A2");
+        attributes.put(A_3, "A3");
+        attributes.put(C_1, "C1");
+        attributes.put(C_2, "C2");
     }
 
     public static String lookup(String uuid, String defaultName) {
